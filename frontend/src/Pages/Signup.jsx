@@ -48,9 +48,10 @@ const Signup = () => {
     e.preventDefault();
     try {
       const result = await signupUser(formData);
-      if (result.success) {
+      console.log(result.data)
+      if (result.data.success) {
         setType('success');
-        setMessage(result.message);
+        setMessage(result.data.message);
         setShowMessage(true);
         setTimeout(() => setShowMessage(false), 2000);
       }

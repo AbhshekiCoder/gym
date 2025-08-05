@@ -8,6 +8,11 @@ import Payment from "../models/Payment";
 
 export const signup = async (req: Request, res: Response) => {
   try {
+    const existUser = await User.findOne({where:{email: req.body.email}})
+    if(existUser){
+      res.status(500).json({success: false, message: 'user already exist'});
+      return;
+    }
     const result = await User.create(req.body);
     res.status(201).json({ success: true, message: "registered successfully" });
   } catch (err: unknown) {
