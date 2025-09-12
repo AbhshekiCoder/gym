@@ -6,18 +6,17 @@ import adminRoutes from './routes/AdminRoutes';
 import  cors from 'cors'
 import connectDB from './config/DatabaseConnected';
 const app = express();
+app.use(
+  cors({
+    origin: "https://gym1246.netlify.app", // frontend domain
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    credentials: true,
+  })
+);
 
 
 app.use(express.json());
 dotenv.config();
-app.use(cors())
-app.use(
-  cors({
-    origin: "https://gym1246.netlify.app",  // Your frontend domain
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-  })
-);
 
 connectDB()
 
