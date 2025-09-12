@@ -1,30 +1,27 @@
-import { DataTypes } from "sequelize";
-import { sequelize } from "../config/DatabaseConnected";
+import mongoose from "mongoose";
 
+const PaymentSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+    lowercase: true, // normalize
+    trim: true,
+  },
+  plan: {
+    type: String,
+    required: true,
+  },
+  phone: {
+    type: String,
+    required: true,
+  }
+}, {
+  timestamps: true
+});
 
-const Payment = sequelize.define('payment', {
-    id:{
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-    },
-    name:{
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    email:{
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    plan:{
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    phone:{
-        type: DataTypes.STRING,
-        allowNull: false
-    }
-
-})
-
+const Payment = mongoose.model("Payment", PaymentSchema);
 export default Payment;

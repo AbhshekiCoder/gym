@@ -68,9 +68,16 @@ const Login = () => {
           }
           
           if (result1.data.data.role === "admin") {
-            navigate('/admin');
+            setTimeout(() =>{
+              navigate('/admin');
+
+            },2000)
+            
           } else {
-            navigate('/');
+            setTimeout(() =>{
+              navigate('/');
+
+            },2000)
           }
         }
 

@@ -1,117 +1,128 @@
-import { where } from "sequelize";
-import User from "../models/Users"
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import razorpay from 'razorpay';
+import Razorpay from "razorpay";
+import User from "../models/Users";
 import Payment from "../models/Payment";
+import dotenv from 'dotenv';
+dotenv.config()
 
-
-export const signup = async (req: Request, res: Response) => {
+// ➝ Signup
+export const signup = async (req: Request, res: Response): Promise<void> => {
   try {
-    const existUser = await User.findOne({where:{email: req.body.email}})
-    if(existUser){
-      res.status(500).json({success: false, message: 'user already exist'});
+    const { email, ...rest } = req.body;
+
+    if (!email) {
+      res.status(400).json({ success: false, message: "Email is required" });
       return;
     }
-    const result = await User.create(req.body);
-    res.status(201).json({ success: true, message: "registered successfully" });
+
+    const existUser = await User.findOne({ email });
+    if (existUser) {
+      res.status(400).json({ success: false, message: "User already exists" });
+      return;
+    }
+
+    await User.create({ email, ...rest });
+    res.status(201).json({ success: true, message: "Registered successfully" });
   } catch (err: unknown) {
     if (err instanceof Error) {
+      console.log(err)
       res.status(500).json({ success: false, error: err.message });
-    } else {
-      res.status(500).json({ success: false, error: "Unknown error" });
     }
   }
 };
 
-export const login = async (req: Request, res: Response) =>{
-  try{
-    const {email, password} = req.body;
-    
-    const user = await User.findOne({where:{email: email} });
-    if(!user){
-      res.status(500).json({success: false, message: "user not registered"});
+// ➝ Login
+export const login = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { email, password } = req.body;
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      res.status(400).json({ success: false, message: "User not registered" });
       return;
     }
-    const result = await User.findOne({where:{email: email, password: password}});
-    if(result){
-      let user = result.toJSON()
-     
-      const token = jwt.sign({id: user.id}, '123456', {expiresIn: "1h"});
-     
-      res.status(200).json({success: true, message: "login successfully", token: token});
 
+    // (🔐 Use bcrypt.compare() in production)
+    const validUser = await User.findOne({ email, password });
+    if (!validUser) {
+      res.status(400).json({ success: false, message: "Password is incorrect" });
+      return;
     }
-    else{
-      res.status(500).json({success: false, message: "password is incorrect"})
-    }
-    
-  }catch(err: unknown){
-     if (err instanceof Error) {
+
+    const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET || "123456", {
+      expiresIn: "1h",
+    });
+
+    res.status(200).json({ success: true, message: "Login successful", token });
+  } catch (err: unknown) {
+    if (err instanceof Error) {
       res.status(500).json({ success: false, error: err.message });
-      console.log(err.message)
+    }
+  }
+};
+
+// ➝ Get User by Token
+export const user = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { token } = req.params;
+    if (!token) {
+      res.status(400).json({ success: false, message: "Token required" });
+      return;
+    }
+
+    const decoded = jwt.decode(token) as { id: string } | null;
+    if (!decoded || !decoded.id) {
+      res.status(400).json({ success: false, message: "Invalid token" });
+      return;
+    }
+
+    const result = await User.findById(decoded.id);
+    if (result) {
+      res.status(200).json({ success: true, data: result });
     } else {
-      res.status(500).json({ success: false, error: "Unknown error" });
+      res.status(404).json({ success: false, message: "User not found" });
     }
-
-  }
-}
-  export const user = async (req: Request, res: Response) =>{
-    try{
-      const {token} = req.params;     
-      console.log(token)
-      const decode = jwt.decode(token) as {id: number}
-      const id: number = decode.id; 
-
-      const result = await User.findByPk(id);
-      if(result){
-        res.status(200).json({success: true, data: result});
-      }
-    
-
-  }catch(err: unknown){
-    if(err instanceof Error){
-    res.status(500).json({success: false, error: err.message})
-    }  else {
-      res.status(500).json({ success: false, error: "Unknown error" });
-    }
-
-  }
-}
-
-const razorpayInstance = new razorpay({
-  key_id: process.env.KEY_ID,
-  key_secret: process.env.KEY_SECRET
-})
-
-export const payment = async (req: Request, res: Response) =>{
-  const {name, email, phone, plan } = req.body;
-  try{
-  const options = {
-    amount: plan.price * 100,
-    currency: "INR",
-    receipt: "receipt#1"
-
-  }
-
-  const order = await razorpayInstance.orders.create(options);
-  const result = await Payment.create({
-    name,
-    email,
-    phone,
-    plan: plan.name
-  })
-  if(result){
-    console.log(order)
-  res.status(201).json({success: true, data: order})
-
-  }
-  }catch(err: unknown){
-    console.log(err)
-    if(err instanceof Error){
-      console.log(err.message)
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      res.status(500).json({ success: false, error: err.message });
     }
   }
-}
+};
 
+// ➝ Razorpay Payment
+const razorpayInstance = new Razorpay({
+  key_id: process.env.KEY_ID!,
+  key_secret: process.env.KEY_SECRET!,
+});
 
+export const payment = async (req: Request, res: Response): Promise<void> => {
+  const { name, email, phone, plan } = req.body;
+  try {
+    if (!plan || !plan.price || !plan.name) {
+      res.status(400).json({ success: false, message: "Invalid plan details" });
+      return;
+    }
+
+    const options = {
+      amount: plan.price * 100, // paise
+      currency: "INR",
+      receipt: `receipt_${Date.now()}`,
+    };
+
+    const order = await razorpayInstance.orders.create(options);
+
+    await Payment.create({
+      name,
+      email,
+      phone,
+      plan: plan.name,
+    });
+
+    res.status(201).json({ success: true, data: order });
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      res.status(500).json({ success: false, error: err.message });
+    }
+  }
+};

@@ -94,10 +94,10 @@ const Payments = ({ colors, mode }) => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.05 }}
                 >
-                  <td className="py-3 px-4 font-medium" style={{ color: colors.text }}>{payment.id}</td>
+                  <td className="py-3 px-4 font-medium" style={{ color: colors.text }}>{payment._id}</td>
                   <td className="py-3 px-4" style={{ color: colors.text }}>{payment.phone}</td>
                   <td className="py-3 px-4" style={{ color: mode === 'dark' ? '#9ca3af' : '#6b7280' }}>{payment.createdAt}</td>
-                  <td className="py-3 px-4 font-bold" style={{ color: colors.primary }}>{payment.amount}</td>
+                  <td className="py-3 px-4 font-bold" style={{ color: colors.primary }}>{payment.plan} </td>
                   <td className="py-3 px-4" style={{ color: colors.text }}>upi</td>
                   <td className="py-3 px-4">
                     <span className="px-2 py-1 rounded-full text-xs"

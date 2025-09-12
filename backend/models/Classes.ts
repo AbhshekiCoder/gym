@@ -1,42 +1,35 @@
-import { DataTypes } from "sequelize";
-import { sequelize } from "../config/DatabaseConnected";
+import mongoose from "mongoose";
 
+const ClassesSchema = new mongoose.Schema({
+  classname: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  trainer: {
+    type: String,
+    required: true,
+  },
+  time: {
+    type: String,
+    required: true,
+  },
+  capacity: {
+    type: Number,
+    required: true,
+  },
+  attendees: {
+    type: Number,
+    default: 0, // optional, since in your SQL it wasn't required
+  }
+}, {
+  timestamps: true // automatically adds createdAt & updatedAt
+});
 
-
-const Classes = sequelize.define("classes", {
-    id:{
-        autoIncrement: true,
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        primaryKey: true
-
-    },
-    classname:{
-        type: DataTypes.STRING,
-        allowNull: false
-
-    },
-    description:{
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    trainer:{
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    time:{
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    capacity:{
-        type: DataTypes.INTEGER,
-        allowNull: false
-    },
-    attendees:{
-        type: DataTypes.INTEGER,
-
-        
-    }
-})
+const Classes = mongoose.model("Classes", ClassesSchema);
 
 export default Classes;

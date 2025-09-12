@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaUserPlus, FaUser, FaEnvelope, FaLock, FaEye, FaEyeSlash } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { signupUser } from '../services/authService';
 import { Message } from 'rsuite';
 import { useSelector } from 'react-redux';
@@ -19,6 +19,7 @@ const slide = {
 };
 
 const Signup = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -54,6 +55,11 @@ const Signup = () => {
         setMessage(result.data.message);
         setShowMessage(true);
         setTimeout(() => setShowMessage(false), 2000);
+        setTimeout(() =>{
+          navigate('/login');
+
+        },3000)
+        
       }
     } catch (err) {
       setType('warning');

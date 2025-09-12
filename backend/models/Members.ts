@@ -1,33 +1,27 @@
-import { DataTypes } from 'sequelize';
-import { sequelize } from '../config/DatabaseConnected';
+import mongoose from "mongoose";
 
+const MemberSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  plan: {
+    type: String,
+    required: true,
+  },
+  membership: {
+    type: String,
+    required: true,
+  },
+  joined: {
+    type: Date,
+    required: true,
+    default: Date.now, // auto set if not provided
+  }
+}, {
+  timestamps: true
+});
 
-
-const Member = sequelize.define('members',{
-    id:{
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
-
-    },
-    name:{
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    plan:{
-        type: DataTypes.STRING,
-        allowNull: false
-
-    },
-    membership:{
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    joined:{
-        type: DataTypes.DATE,
-        allowNull: false
-
-    }
-})
-
+const Member = mongoose.model("Member", MemberSchema);
 export default Member;
