@@ -11,6 +11,13 @@ const app = express();
 app.use(express.json());
 dotenv.config();
 app.use(cors())
+app.use(
+  cors({
+    origin: "https://gym1246.netlify.app",  // Your frontend domain
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 
 connectDB()
 
