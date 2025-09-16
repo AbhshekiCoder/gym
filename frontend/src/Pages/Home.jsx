@@ -274,7 +274,7 @@ const Home = () => {
               <SwiperSlide>
                 <div className="h-full w-full relative">
                   <img 
-                    src="https://images.unsplash.com/photo-1549060279-7e168fce7090?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
+                    src="https://kaizenaire.com/wp-content/uploads/2023/12/image-1774.jpeg" 
                     alt="Group fitness class"
                     className="w-full h-full object-cover"
                   />
