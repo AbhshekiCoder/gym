@@ -58,7 +58,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
   } catch (err: unknown) {
     if (err instanceof Error) {
       res.status(500).json({ success: false, error: err.message });
-      console.log(err)
+      
     }
   }
 };

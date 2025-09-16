@@ -60,7 +60,7 @@ const Navbar = () => {
   return (
     <nav className={`navbar sticky top-0 p-4 flex justify-between items-center ${bgClass} ${shadowClass} text-white transition-all duration-300 z-50`}>
       {/* Logo */}
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center space-x-2 pl-3">
         <FaDumbbell className="text-3xl text-amber-400 animate-pulse" />
         <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-amber-400 to-yellow-300">
           GymX
@@ -83,7 +83,7 @@ const Navbar = () => {
           <NavLink to="/" icon={<FaHome />} text="Home" />
           <NavLink to="/about" icon={<FaInfoCircle />} text="About" />
           <NavLink to="/join" icon={<FaUserPlus />} text="Join" />
-          <NavLink to="/login" icon={<FaUserCog />} text="Admin" />
+         
           <NavLink to="/signup" icon={<FaUserPlus />} text="Sign Up" />
         </div>
 
@@ -134,7 +134,7 @@ const Navbar = () => {
           <MobileNavLink to="/" icon={<FaHome />} text="Home" onClick={toggleMenu} />
           <MobileNavLink to="/about" icon={<FaInfoCircle />} text="About" onClick={toggleMenu} />
           <MobileNavLink to="/join" icon={<FaUserPlus />} text="Join" onClick={toggleMenu} />
-          <MobileNavLink to="/login" icon={<FaUserCog />} text="Admin" onClick={toggleMenu} />
+          
           <MobileNavLink to="/signup" icon={<FaUserPlus />} text="Sign Up" onClick={toggleMenu} />
           
           {userInfo?.name ? (

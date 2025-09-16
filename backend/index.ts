@@ -8,7 +8,7 @@ import connectDB from './config/DatabaseConnected';
 const app = express();
 app.use(
   cors({
-    origin: "https://gym1246.netlify.app", // frontend domain
+    origin: ["https://gym1246.netlify.app", "http://localhost:5173"], // frontend domain
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
   })

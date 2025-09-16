@@ -53,7 +53,7 @@ const Sidebar = ({ activeTab, setActiveTab, mode, colors, collapsed, setCollapse
             >
               <FaDumbbell className="text-xl" style={{ color: colors.primary }} />
             </motion.div>
-            <h1 className="text-xl font-bold"><Link to="/">GymX Fitness</Link></h1>
+            <h1 className="text-xl font-bold "><Link to="/" className='text-white'>GymX Fitness</Link></h1>
           </div>
         )}
         {collapsed && (

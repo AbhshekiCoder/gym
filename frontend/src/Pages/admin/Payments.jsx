@@ -69,7 +69,7 @@ const Payments = ({ colors, mode }) => {
         <div className="overflow-x-auto">
           <table className="w-full min-w-[800px]">
             <thead>
-              <tr style={{ backgroundColor: mode === 'dark' ? '#374151' : '#f3f4f6' }}>
+              <tr style={{ backgroundColor: mode === 'dark' ? '#374151' : '#f3f4f6', color:mode==='dark'?'white':'black' }}>
                 <th className="py-3 px-4 text-left">Payment ID</th>
                 <th className="py-3 px-4 text-left">Member</th>
                 <th className="py-3 px-4 text-left">Date</th>
@@ -108,6 +108,7 @@ const Payments = ({ colors, mode }) => {
                     >
                       completed
                     </span>
+                    
                   </td>
                   <td className="py-3 px-4">
                     <motion.button 

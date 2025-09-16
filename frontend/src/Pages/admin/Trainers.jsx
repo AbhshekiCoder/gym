@@ -73,7 +73,7 @@ const Trainers = ({ colors, mode }) => {
         <div className="overflow-x-auto">
           <table className="w-full min-w-[600px]">
             <thead>
-              <tr style={{ backgroundColor: mode === 'dark' ? '#374151' : '#f3f4f6' }}>
+              <tr style={{ backgroundColor: mode === 'dark' ? '#374151' : '#f3f4f6', color: mode === 'dark'?'white':'black' }}>
                 <th className="py-3 px-4 text-left">Name</th>
                 <th className="py-3 px-4 text-left">Specialty</th>
                 <th className="py-3 px-4 text-left">Experience</th>

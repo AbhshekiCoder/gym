@@ -79,6 +79,7 @@ const slide = {
         setType('success');
         setMessage(editIndex !== null ? "Member updated successfully" : "Member created successfully");
         setShowMessage(true);
+        getMembers()
         setTimeout(() =>{
           setShowMessage(false)
 
