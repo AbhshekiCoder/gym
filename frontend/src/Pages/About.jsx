@@ -307,26 +307,43 @@ const About = () => {
                 </motion.button>
               </div>
               
-              <div className="md:w-1/2 grid grid-cols-2 gap-4">
-                {[...Array(4)].map((_, index) => (
-                  <motion.div 
-                    key={index}
-                    className="rounded-xl shadow-lg overflow-hidden h-40"
-                    style={{ background: 'rgba(255, 255, 255, 0.2)' }}
-                    initial={{ scale: 0, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    transition={{ delay: 3.8 + index * 0.2, duration: 0.5 }}
-                    whileHover={{ scale: 1.05 }}
-                  >
-                    <div className="w-full h-full flex items-center justify-center">
-                      <div className="text-center">
-                        <FaDumbbell className="text-3xl mb-2" />
-                        <p className="text-sm">Facility {index + 1}</p>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
+             <div className="md:w-1/2 grid grid-cols-2 gap-4">
+  {[
+    "https://images.unsplash.com/photo-1696563996353-214a3690bb11?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGd5bSUyMHRyYWluZXJ8ZW58MHx8MHx8fDA%3D",
+    "https://static1.gensler.com/uploads/image/93798/EvelynRubenstein_DeepDive_Carousel04_2000px_1724352330.jpg",
+    "https://images.squarespace-cdn.com/content/v1/5ada11772714e5eb213ab1df/1586880135100-S4GZIJ16S7FRRPUNW46L/DSC_1335.jpg ",
+    "https://d6whyyexjggmd.cloudfront.net/wp-content/uploads/2019/12/crcc-amenities-fitness-center-1200x675.jpg "
+  ].map((imgUrl, index) => (
+    <motion.div 
+      key={index}
+      className="rounded-xl shadow-lg overflow-hidden h-40 relative group"
+      style={{ background: 'rgba(255, 255, 255, 0.2)' }}
+      initial={{ scale: 0, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      transition={{ delay: 3.8 + index * 0.2, duration: 0.5 }}
+      whileHover={{ scale: 1.05 }}
+    >
+      <div className="w-full h-full flex items-center justify-center">
+        <img 
+          src={imgUrl} 
+          alt={`Professional Trainer ${index + 1}`}
+          className="w-full h-full object-cover"
+        />
+        {/* Hover Overlay with Trainer Info */}
+        <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 transition-all duration-300 flex flex-col justify-end p-3">
+          <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+            <h4 className="text-white font-bold text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              {['Sarah Johnson', 'Mike Rodriguez', 'Lisa Chen', 'David Wilson'][index]}
+            </h4>
+            <p className="text-xs text-amber-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
+              {['Fitness Coach', 'Strength Trainer', 'Yoga Instructor', 'Nutrition Specialist'][index]}
+            </p>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  ))}
+</div>
             </div>
           </motion.div>
 

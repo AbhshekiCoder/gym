@@ -73,7 +73,7 @@ const Home = () => {
     >
      <Navbar/>
       {/* Hero Section */}
-     <section className="py-16 px-4 md:px-8 relative overflow-hidden border">
+     <section className="py-16 px-4 md:px-8 relative overflow-hidden">
   {/* Animated background elements */}
   <div className="absolute inset-0 overflow-hidden z-0">
     {[...Array(12)].map((_, i) => (
@@ -656,7 +656,7 @@ const Home = () => {
       <div className="lg:col-span-2">
         <div className="flex items-center gap-3 mb-6">
           <FaDumbbell className="text-2xl text-amber-400" />
-          <span className="text-2xl font-bold">Titan Fitness</span>
+          <span className="text-2xl font-bold">GymX Fitness</span>
         </div>
         <p className="opacity-80 mb-6 max-w-md">
           Transforming lives through fitness since 2010. Our mission is to help you become the strongest version of yourself, both physically and mentally.
@@ -750,7 +750,7 @@ const Home = () => {
           </li>
           <li className="flex items-center gap-3">
             <FaEnvelope className="text-amber-400" />
-            <span>info@titanfitness.com</span>
+            <span>info@gymxfitness.com</span>
           </li>
           <li className="flex items-center gap-3">
             <FaClock className="text-amber-400" />
