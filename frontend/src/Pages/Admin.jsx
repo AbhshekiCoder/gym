@@ -56,10 +56,11 @@ const Admin = () => {
         return <Challenges colors={colors} mode={mode} />;
       case 'leads':
         return <Leads colors={colors} mode={mode} />;
+      case 'website-content':
+        return <WebsiteContent colors={colors} mode={mode} />;
       case 'settings':
         return <Settings colors={colors} mode={mode} user={user} />;
-      case 'websitecontent':
-        return <WebsiteContent colors={colors} mode={mode} />;
+     
       default:
         return <Dashboard colors={colors} mode={mode} />;
     }
