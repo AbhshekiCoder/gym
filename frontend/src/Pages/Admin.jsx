@@ -18,6 +18,7 @@ import Challenges from './admin/Challenges';
 import Settings from './admin/Settings';
 import Trainers from './admin/Trainers';
 import Leads from './admin/Leads';
+import WebsiteContent from './admin/WebsiteContent';
 
 const Admin = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -57,6 +58,8 @@ const Admin = () => {
         return <Leads colors={colors} mode={mode} />;
       case 'settings':
         return <Settings colors={colors} mode={mode} user={user} />;
+      case 'websitecontent':
+        return <WebsiteContent colors={colors} mode={mode} />;
       default:
         return <Dashboard colors={colors} mode={mode} />;
     }

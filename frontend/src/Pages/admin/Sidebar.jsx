@@ -5,7 +5,7 @@ import {
   FaChartBar, FaUsers, FaCalendarAlt, 
   FaDollarSign, FaClipboardList, FaTrophy, 
   FaCog, FaSignOutAlt, FaDumbbell, FaUserFriends,
-  FaHandshake, FaChevronLeft, FaChevronRight
+  FaHandshake, FaChevronLeft, FaChevronRight, FaGlobe
 } from 'react-icons/fa';
 
 const Sidebar = ({ activeTab, setActiveTab, mode, colors, collapsed, setCollapsed }) => {
@@ -18,6 +18,7 @@ const Sidebar = ({ activeTab, setActiveTab, mode, colors, collapsed, setCollapse
     { id: 'leads', label: 'Leads', icon: <FaHandshake /> },
     { id: 'reports', label: 'Reports', icon: <FaClipboardList /> },
     { id: 'challenges', label: 'Challenges', icon: <FaTrophy /> },
+    { id: 'website-content', label: 'Website Content', icon: <FaGlobe /> },
     { id: 'settings', label: 'Settings', icon: <FaCog /> }
   ];
 
